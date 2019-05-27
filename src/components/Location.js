@@ -1,12 +1,17 @@
 import React from 'react';
 
-const Location = ()  =>(
+const Location = (props)  =>{
+    //destructuracion de objetos de es6:
+    const { city } = props; // == const city = props.city
+    return (
     <div>
         <h1>
-            Madrid
+            {city}
         </h1>
     </div>
+    )
+}
 
-)
+
 
 export default Location;

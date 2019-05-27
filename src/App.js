@@ -1,5 +1,5 @@
 import React from 'react';
-import WeatherLocation from './components/WeatherLocation'
+import WeatherLocation from './components/WeatherLocation/index'
 
 import './App.css';
 
@@ -7,8 +7,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <WeatherLocation></WeatherLocation>
       </header>
+      <main>
+        <WeatherLocation></WeatherLocation>
+      </main>
     </div>
   );
 }

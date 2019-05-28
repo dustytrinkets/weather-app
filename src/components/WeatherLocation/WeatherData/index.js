@@ -3,16 +3,14 @@ import WeatherExtraInfo from './WeatherExtraInfo';
 import WeatherTemperature from './WeatherTemperature';
 import './styles.css'
 
-
 const WeatherData = ({data}) => {
-    
+    const {temperature, state, humidity, wind} = data;
     return (
     <div className="weatherDataCont">
-        <WeatherTemperature temperature={data.temperature} state={data.state} />
-        <WeatherExtraInfo humidity={data.humidity} wind={data.wind} />
+        <WeatherTemperature temperature={temperature} state={state} />
+        <WeatherExtraInfo humidity={humidity} wind={wind} />
     </div>
 
-    )
-}
+)}
 
 export default WeatherData;

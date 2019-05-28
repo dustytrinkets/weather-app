@@ -6,6 +6,7 @@ import * as constWeather from '../../../constants/weathers'
 
 const sizeIcon = '4x';
 const getWeatherIcon = state => {
+    debugger;
     const icon = state
     if (icon){
         return  (<WeatherIcons className="wicon" name={icon} size={sizeIcon}/>)

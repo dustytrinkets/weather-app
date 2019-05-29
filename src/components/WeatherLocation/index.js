@@ -4,6 +4,13 @@ import WeatherData from './WeatherData/index';
 import * as constWeather from '../../constants/weathers'
 import './styles.css'
 
+//Open weather map API
+const URL_BASE = 'http://api.openweathermap.org/data/2.5/weather'
+const LOCATION = 'Madrid,es';
+const API_KEY = '248bef42a9ab2ca58fc0ec7d606f2ae5';
+
+const ApiWeather = `${URL_BASE}?q=${LOCATION}&appid=${API_KEY}&units=metric`;
+
 const data={
     temperature:5,
     state: constWeather.MOON,
@@ -22,17 +29,47 @@ class WeatherLocation extends Component {
         }
     }
 
-    handleUpdateClick=()=>{
-        // this.setState(() => {
-        //     return {city: 'Madrid'};
-        //   });
+    getWeatherState = (weatherData) => {
+        return 'snow'
+    }
 
-        this.setState({city:'Madrid', data: {
-            temperature:10,
-            state: this.constWeather.RAIN,
-            humidity: 20,
-            wind:'20m/s'
-        }})
+    getData = (weatherData) =>{
+        const {humidity, temp} = weatherData.main
+        const {speed} = weatherData.wind
+        const name = weatherData.name;
+        const state = this.getWeatherState(weatherData);
+        let data= {
+            city: name, 
+            data: { 
+                temperature: temp,
+                state: state,
+                humidity: humidity,
+                wind:`${speed}m/s`
+            }
+        }
+        return data;
+
+    }
+
+    handleUpdateClick=()=>{
+        fetch(ApiWeather)
+            .then(
+                (response)=> {
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' + response.status);
+                    return;
+                }
+
+                // Examine the text in the response
+                response.json().then((data) => {
+                    const newData = this.getData(data)
+                    this.setState(newData)
+                });
+                }
+            )
+            .catch(function(err) {
+                console.log('Fetch Error: ', err);
+            });
     }
     
     render(){
